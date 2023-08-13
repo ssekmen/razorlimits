@@ -123,6 +123,8 @@ systematics = [
     #"_metDown",
     #"_RescaleAK8Up",
     #"_RescaleAK8Down",
+    "_puidUp",
+    "_puidDown",
     "_BoostTagUp",
     "_BoostTagDown",
     "_BoostTag_FastsimUp",
