@@ -10,7 +10,10 @@ import argparse
 date = sys.argv[1]
 
 # Physics models
-models = ['T6ttZH']
+models = ['R2bbqqlv']
+models = ['R5ttbl']
+models = ['TChiWW']
+models = ['TChiWZ']
 
 # List of SRs for which to run limits.  
 # Modify the SR list as needed.
@@ -74,6 +77,9 @@ SRs = {'V' : VSRs,
        'nisolep' : nisolepSRs, 
        'Leptop' : LeptopSRs, 
        'Lepjet' : LepjetSRs}
+
+SRs = {'V' : VSRs}
+
 
 print(SRs)
 

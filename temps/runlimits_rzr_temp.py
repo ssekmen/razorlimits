@@ -6,14 +6,16 @@ from string import *
 
 def getxsec(model):
     xsecdict = {} # dict for xsecs
-    if 'T1qqqq' in model or 'T1btbt' in model:
+    if 'T1' in model or 'T5' in model or 'R5' in model:
         # Modify path below to match your setup:
         xsecFile = "/afs/cern.ch/user/s/ssekmen/work/RazorRun2/limit/razorlimits/glu_xsecs_13TeV.txt"
-    if 'T6ttZH' in model or 'T2tb' in model:
+    if 'T6' in model or 'T2tb' in model or 'R2' in model:
         # Modify path below to match your setup:
         xsecFile = "/afs/cern.ch/user/s/ssekmen/work/RazorRun2/limit/razorlimits/stopsbot_xsecs_13TeV.txt"
-    if model == 'PureHiggsino':
-        xsecFile = ".txt"
+    if model == 'TChiWZ':
+        xsecFile = "/afs/cern.ch/user/s/ssekmen/work/RazorRun2/limit/razorlimits/c1n2_xsecs_13TeV.txt"
+    if model == 'TChiWW':
+        xsecFile = "/afs/cern.ch/user/s/ssekmen/work/RazorRun2/limit/razorlimits/c1c1_xsecs_13TeV.txt"
 
     with open(xsecFile,"r") as xfile:
         lines = xfile.readlines()

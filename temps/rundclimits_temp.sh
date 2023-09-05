@@ -16,3 +16,5 @@ cd /afs/cern.ch/user/s/ssekmen/work/RazorRun2/limit/CMSSW_10_2_13/src/
 eval `scramv1 ru -sh`
 cd dirname
 python scriptname
+
+python /afs/cern.ch/user/s/ssekmen/work/RazorRun2/limit/razorlimits/Get2DContour.py contargs

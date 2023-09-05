@@ -7,9 +7,16 @@ date = sys.argv[1]
 
 # Medels to plot
 models = ['T6ttZH']
+models = ['TChiWW', 'TChiWZ', 'T5bbbbZH', 'T5ttcc', 'T6ttZH', 'R2bbqqlv', 'R5ttbl']
+models = ['TChiWW', 'TChiWZ', 'T5bbbbZH', 'T5ttcc', 'T6ttZH']
+models = ['TChiWW', 'TChiWZ', 'T6ttZH', 'T5ttcc']
+models = ['TChiWZ', 'TChiWW', 'T5ttcc', 'T6ttZH', 'T5qqqqWH', 'T5bbbbZH', 'R2bbqqlv']
+models = ['R5ttbl']
 
-# Regions to plot - provide regions / region sets of interest in a list
-SRs = ['SR_Had_1htop',
+# List of SRs for which to run limits.  
+# Modify the SR list as needed.
+# Individual SRs option - given as list:
+allSRs = ['SR_Had_1htop',
       'SR_Had_2htop',
       'SR_Had_V_b_45j',
       'SR_Had_V_b_6j',
@@ -42,8 +49,31 @@ SRs = ['SR_Had_1htop',
       'SR_Lepjet_1V_5j',
 ]
 
-SRs = ['', 'lep', 'had', 'top', 'Lepjet', 'Leptop', 'V', 'H']
+# Filter region sublists:
+hadSRs = filter(lambda sr: '_Had_' in sr, allSRs)
+lepSRs = filter(lambda sr: '_Lep_' in sr, allSRs)
+HSRs = filter(lambda sr: 'd_H' in sr or 'p_H' in sr, allSRs)
+VSRs = filter(lambda sr: 'V' in sr and not '0V' in sr, allSRs)
+topSRs = filter(lambda sr: 'top' in sr and not '0htop' in sr, allSRs)
+LeptopSRs = filter(lambda sr: 'Leptop' in sr, allSRs)
+LepjetSRs = filter(lambda sr: 'Lepjet' in sr, allSRs)
+nisolepSRs = filter(lambda sr: 'Leptop' in sr or 'Lepjet' in sr, allSRs)
 
+# Dictionary option - specify regions list name (e.g. had) and list of regions: 
+SRs = {'all' : allSRs,
+       'had' : hadSRs,
+       'lep' : lepSRs,
+       'H' : HSRs,
+       'V' : VSRs,
+       'top' : topSRs,
+       'nisolep' : nisolepSRs,
+       'Leptop' : LeptopSRs,
+       'Lepjet' : LepjetSRs}
+#SRs = {'all' : allSRs}
+
+SRs = ['', 'had', 'lep', 'H', 'V', 'top', 'Lepjet', 'Leptop', 'nisolep']
+
+#SRs = ['lep']
 
 if not os.path.exists(date):
     os.mkdir(date)
@@ -72,3 +102,4 @@ for m in models:
             os.system(cmd)
 
             os.system('mv *%s.* %s/' % (date, date))
+#            break

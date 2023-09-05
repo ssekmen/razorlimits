@@ -5,6 +5,11 @@ from string import *
 
 date = sys.argv[1]
 models = ['T6ttZH']
+models = ['TChiWW', 'TChiWZ', 'T5bbbbZH', 'T5qqqqWH', 'T5ttcc', 'T6ttZH', 'R2bbqqlv', 'R5ttbl']
+models = ['TChiWW', 'TChiWZ', 'T5bbbbZH', 'T5ttcc', 'T6ttZH']
+#models = ['R2bbqqlv', 'R5ttbl']
+models = ['T5ttcc', 'TChiWZ', 'TChiWW', 'T6ttZH']
+models = ['T5bbbbZH', 'T5qqqqWH']
 
 SRs = ['SR_Had_1htop',
       'SR_Had_2htop',
@@ -40,7 +45,9 @@ SRs = ['SR_Had_1htop',
 ]
 
 
-SRs = ['', 'lep', 'had', 'top', 'Lepjet', 'Leptop', 'V', 'H']
+SRs = ['all', 'had', 'lep', 'H', 'V', 'top', 'nisolep', 'Lepjet', 'Leptop']
+SRs = ['all', 'had', 'lep', 'V', 'top', 'nisolep', 'Lepjet', 'Leptop']
+SRs = ['lep', 'nisolep', 'top', 'Lepjet', 'Leptop']
 
 # Contour calculating script
 scr = 'Get2DContour.py'

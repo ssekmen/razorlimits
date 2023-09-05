@@ -104,6 +104,10 @@ class sms():
         elif modelname.find("T2qq") != -1: self.T2qq()
         elif modelname.find("T6bbHH") != -1: self.T6bbHH()
         elif modelname.find("T6ttZH") != -1: self.T6ttZH()
+        elif modelname.find("T5qqqqWH") != -1: self.T5qqqqWH()
+        elif modelname.find("T5bbbbZH") != -1: self.T5bbbbZH()
+        elif modelname.find("TChiWW") != -1: self.TChiWW()
+        elif modelname.find("TChiWZ") != -1: self.TChiWZ()
         elif modelname.find("T2ttGluino") != -1: self.T2ttGluino()
         elif modelname.find("T2tt") != -1: self.T2tt()
         elif modelname.find("T2btLL") != -1: self.T2btLL()
@@ -111,6 +115,8 @@ class sms():
         elif modelname.find("T2tb") != -1: self.T2tb()
         elif modelname.find("T2bw") != -1: self.T2bw()
         elif modelname.find("T2bH") != -1: self.T2bH()
+        elif modelname.find("R2bbqqlv") != -1: self.R2bbqqlv()
+        elif modelname.find("R5ttbl") != -1: self.R5ttbl()
         elif modelname.find("PureHiggsino") != -1: self.PureHiggsino()
 
     def T2bH(self):
@@ -190,6 +196,81 @@ class sms():
         self.optX = True
         self.optY = True
 
+    def R5ttbl(self):
+        # model name
+        self.modelname = "R5ttbl"
+        # decay chain
+        self.label= "pp #rightarrow #tilde{g}#tilde{g}, #tilde{g} #rightarrow t#tilde{t}, #tilde{t} #rightarrow bl"
+        self.masslabel = ""
+        # scan range to plot
+        self.Xmin = 1000
+        self.Xmax = 2800
+        self.Ymin = 0
+        self.Ymax = 3000
+        self.Zmax = 2
+        self.Zmin = 5.e-4
+        # produce sparticle
+        self.sParticle = "m_{#tilde{g}} (GeV)"
+        # LSP
+        self.LSP = "m_{#tilde{#chi}^{0}_{1}} (GeV)"
+        # diagonal position 
+        self.diagX = array('d',[0,20000,self.Xmin])
+        self.diagY = array('d',[-25, 20000-25,self.Xmax])  
+        self.divX = 408
+        self.divY = 408
+        self.optX = True
+        self.optY = True
+
+    def T5qqqqWH(self):
+        # model name
+        self.modelname = "T5qqqqWH"
+        # decay chain
+        self.label= "pp #rightarrow #tilde{g}#tilde{g} #rightarrow q#bar{q}#tilde{#chi}^{#pm}_{1} q#bar{q}#tilde{#chi}^{0}_{2} #rightarrow q#bar{q}#tilde{#chi}^{0}_{1}Wq#bar{q}#tilde{#chi}^{0}_{1}H"
+        self.masslabel = ""
+        # scan range to plot
+        self.Xmin = 1000
+        self.Xmax = 2800
+        self.Ymin = 0
+        self.Ymax = 2500
+        self.Zmax = 2
+        self.Zmin = 5.e-4
+        # produce sparticle
+        self.sParticle = "m_{#tilde{g}} (GeV)"
+        # LSP
+        self.LSP = "m_{#tilde{#chi}^{0}_{1}} (GeV)"
+        # diagonal position 
+        self.diagX = array('d',[0,20000,self.Xmin])
+        self.diagY = array('d',[-25, 20000-25,self.Xmax])  
+        self.divX = 408
+        self.divY = 408
+        self.optX = True
+        self.optY = True
+
+    def T5bbbbZH(self):
+        # model name
+        self.modelname = "T5bbbbZH"
+        # decay chain
+        self.label= "pp #rightarrow #tilde{g}#tilde{g} #rightarrow b#bar{b}#tilde{#chi}^{0}_{2} b#bar{b}#tilde{#chi}^{0}_{2} #rightarrow b#bar{b}#tilde{#chi}^{0}_{1}Zb#bar{b}#tilde{#chi}^{0}_{1}H"
+        self.masslabel = ""
+        # scan range to plot
+        self.Xmin = 1000
+        self.Xmax = 2800
+        self.Ymin = 0
+        self.Ymax = 2500
+        self.Zmax = 2
+        self.Zmin = 5.e-4
+        # produce sparticle
+        self.sParticle = "m_{#tilde{g}} (GeV)"
+        # LSP
+        self.LSP = "m_{#tilde{#chi}^{0}_{1}} (GeV)"
+        # diagonal position 
+        self.diagX = array('d',[0,20000,self.Xmin])
+        self.diagY = array('d',[-25, 20000-25,self.Xmax])  
+        self.divX = 408
+        self.divY = 408
+        self.optX = True
+        self.optY = True
+
     def T5ttcc(self):
         # model name
         self.modelname = "T5ttcc"
@@ -201,7 +282,7 @@ class sms():
         self.Xmax = 2800
         self.Ymin = 0
         #self.Ymax = 2125
-        self.Ymax = 1900
+        self.Ymax = 1800
         self.Zmax = 2
         self.Zmin = 1.e-4
         # produce sparticle
@@ -605,8 +686,33 @@ class sms():
         self.divY = 408
         self.optX = True
         self.optY = True
-
         
+    def R2bbqqlv(self):
+        # model name
+        self.modelname = "R2bbqqlv"
+        # decay chain
+        self.label= "pp #rightarrow #tilde{b}#tilde{b}, #tilde{b} #rightarrow b#tilde{#chi}^{0}_{1}, #tilde{#chi}^{0}_{1} #rightarrow qql/qq#nu"
+        self.masslabel = ""
+        # plot boundary. The top 1/4 of the y axis is taken by the legend
+        self.Xmin = 300
+        self.Xmax = 1600
+        self.Ymin = 0
+        self.Ymax = 1800
+        self.Zmax = 10
+        self.Zmin = 1.e-3
+        # produce sparticle
+        self.sParticle = "m_{#tilde{b}} (GeV)"
+        # LSP
+        self.LSP = "m_{#tilde{#chi}^{0}_{1}} (GeV)"
+        # diagonal position: mLSP = mgluino - 2mtop
+        self.diagX = array('d',[0,20000,self.Xmin])
+        self.diagY = array('d',[-25,20000-25,self.Xmax])
+        #self.divX = 407
+        self.divX = 409
+        self.divY = 408
+        self.optX = True
+        self.optY = True
+
     def T2bb(self):
         # model name
         self.modelname = "T2bb"
@@ -925,6 +1031,74 @@ class sms():
         self.Zmin = 1.e-5
         # produce sparticle
         self.sParticle = "m_{#tilde{t}} (GeV)"
+        # LSP
+	self.LSP = "m_{#tilde{#chi}^{0}_{1}} (GeV)"
+        # diagonal position: mLSP = mgluino - 2mtop
+        #self.diagX = array('d',[0,20000,self.Xmin])
+        #self.diagY = array('d',[-25, 20000-25,self.Xmax])
+        #self.divX = 407
+        #self.divX = 509#409
+        #self.divY = 508#408
+        #self.optX = True
+        #self.optY = True
+        # diagonal position: mLSP = mgluino - 2mhiggs
+        self.diagX = array('d',[0,20000, self.Xmin])
+        self.diagY = array('d',[-25, 20000-25, self.Xmax])
+        self.divX = 404
+        self.divY = 409
+        self.optX = True
+        self.optY = True
+
+    def TChiWW(self):
+        # model name
+        self.modelname = "TChiWW"
+        # decay chain
+        self.label= "pp #rightarrow #tilde{#chi}^{#pm}_{1}#tilde{#chi}^{#pm}_{1} #rightarrow W#tilde{#chi}^{0}_{1} W#tilde{#chi}^{0}_{1}"
+        #self.masslabel = "m_{#tilde{#chi}_{2}} = #frac{m_{#tilde{#chi}_{1}}+m_{#tilde{t}}}{2}"
+        self.masslabel = "(m_{#tilde{#chi}_{2}}= m_{#tilde{#chi}_{1}}+m_{#tilde{t}})/2"
+        # plot boundary. The top 1/4 of the y axis is taken by the legend
+        self.Xmin = 200
+        self.Xmax = 1500
+        self.Ymin = 0
+        self.Ymax = 900
+        self.Zmax = 10
+        self.Zmin = 1.e-5
+        # produce sparticle
+        self.sParticle = "m_{#tilde{#chi}^{#pm}_{1}} (GeV)"
+        # LSP
+	self.LSP = "m_{#tilde{#chi}^{0}_{1}} (GeV)"
+        # diagonal position: mLSP = mgluino - 2mtop
+        #self.diagX = array('d',[0,20000,self.Xmin])
+        #self.diagY = array('d',[-25, 20000-25,self.Xmax])
+        #self.divX = 407
+        #self.divX = 509#409
+        #self.divY = 508#408
+        #self.optX = True
+        #self.optY = True
+        # diagonal position: mLSP = mgluino - 2mhiggs
+        self.diagX = array('d',[0,20000, self.Xmin])
+        self.diagY = array('d',[-25, 20000-25, self.Xmax])
+        self.divX = 404
+        self.divY = 409
+        self.optX = True
+        self.optY = True
+
+    def TChiWZ(self):
+        # model name
+        self.modelname = "TChiWZ"
+        # decay chain
+        self.label= "pp #rightarrow #tilde{#chi}^{#pm}_{1}#tilde{#chi}^{2}_{0} #rightarrow w#tilde{#chi}^{0}_{1} Z#tilde{#chi}^{0}_{1}"
+        #self.masslabel = "m_{#tilde{#chi}_{2}} = #frac{m_{#tilde{#chi}_{1}}+m_{#tilde{t}}}{2}"
+        self.masslabel = "(m_{#tilde{#chi}_{2}}= m_{#tilde{#chi}_{1}}+m_{#tilde{t}})/2"
+        # plot boundary. The top 1/4 of the y axis is taken by the legend
+        self.Xmin = 200
+        self.Xmax = 1500
+        self.Ymin = 0
+        self.Ymax = 900
+        self.Zmax = 10
+        self.Zmin = 1.e-5
+        # produce sparticle
+        self.sParticle = "m_{#tilde{#chi}^{#pm}_{1}} = m_{#tilde{#chi}^{0}_{1}} (GeV)"
         # LSP
 	self.LSP = "m_{#tilde{#chi}^{0}_{1}} (GeV)"
         # diagonal position: mLSP = mgluino - 2mtop

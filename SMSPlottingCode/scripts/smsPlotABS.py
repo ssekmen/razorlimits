@@ -126,7 +126,9 @@ class smsPlotABS(object):
         
         #textModelLabel2 = rt.TLatex(0.56,0.88,"NLO+NLL exclusion")
         #textModelLabel2 = rt.TLatex(0.52,0.725,"NLO+NLL exclusion")
-        textModelLabel2 = rt.TLatex(0.51,0.885+samsyoffset,"NLO+NLL exclusion")##this is drawn
+#        yRange = self.model.Ymax - self.model.Ymin
+#        print 'fuck: ', self.model.Ymax-1.50*yRange/100*10+4000*samsyoffset
+        textModelLabel2 = rt.TLatex(0.58,0.84,"NLO+NLL excl.")##this is drawn
         textModelLabel2.SetNDC()
         textModelLabel2.SetTextAlign(13)
         textModelLabel2.SetTextFont(42)

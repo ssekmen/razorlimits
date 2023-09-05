@@ -11,7 +11,11 @@ from string import *
 date = sys.argv[1]
 
 # Physics models
-models = ['T6ttZH']
+# add TChiZZ, TChiZH, TChiHH
+models = ['TChiWW', 'TChiWZ', 'T5bbbbZH', 'T5ttcc', 'T5qqqqWH', 'T6ttZH', 'R2bbqqlv', 'R5ttbl']
+#models = ['T6ttZH']
+#models = ['TChiWW', 'TChiWZ', 'T6ttZH', 'T5ttcc']
+models = ['R5ttbl']
 
 # List of SRs for which to run limits.  
 # Modify the SR list as needed.
@@ -53,15 +57,15 @@ allSRs = ['SR_Had_1htop',
 hadSRs = filter(lambda sr: '_Had_' in sr, allSRs)
 lepSRs = filter(lambda sr: '_Lep_' in sr, allSRs)
 HSRs = filter(lambda sr: 'd_H' in sr or 'p_H' in sr, allSRs)
-VSRs = filter(lambda sr: 'V' in sr, allSRs)
-topSRs = filter(lambda sr: 'top' in sr, allSRs)
+VSRs = filter(lambda sr: 'V' in sr and not '0V' in sr, allSRs)
+topSRs = filter(lambda sr: 'top' in sr and not '0htop' in sr, allSRs)
 LeptopSRs = filter(lambda sr: 'Leptop' in sr, allSRs)
 LepjetSRs = filter(lambda sr: 'Lepjet' in sr, allSRs)
 nisolepSRs = filter(lambda sr: 'Leptop' in sr or 'Lepjet' in sr, allSRs)
 
 # Dictionary option - specify regions list name (e.g. had) and list of regions: 
-SRs = {'all' : allSRs}
-SRs = {'had' : hadSRs,
+SRs = {'all' : allSRs,
+       'had' : hadSRs,
        'lep' : lepSRs,
        'H' : HSRs,
        'V' : VSRs,
@@ -69,10 +73,8 @@ SRs = {'had' : hadSRs,
        'nisolep' : nisolepSRs,
        'Leptop' : LeptopSRs,
        'Lepjet' : LepjetSRs}
+#SRs = {'all' : allSRs}
 
-SRs = {'had' : hadSRs,
-       'lep' : lepSRs
-      }
 
 # Limit code directory
 # Modify path below to match your setup:
@@ -93,7 +95,7 @@ arguments             = $(ClusterId) $(ProcId)
 output                = exename.$(ClusterId).$(ProcId).out
 error                 = exename.$(ClusterId).$(ProcId).out
 log                   = exename.$(ClusterId).log
-+JobFlavour           = "tomorrow"
++JobFlavour           = "testmatch"
 queue
 '''
 
@@ -107,6 +109,8 @@ for m in models:
         else: srlisttxt = sr
         # datacard preparation
         dccommand = 'python3 %s --date %s --model %s --regslist %s --regsname %s --fresh False' % (dcscr, date, m, srlisttxt, sr)
+        # contour running arguments
+        contargs = m+' '+sr+' '+date
         # running limits
         if sr == 'all' : sr = ''
         if len(sr) > 0: sr = '_'+sr
@@ -128,6 +132,7 @@ for m in models:
         lmruncnt = lmruncnt.replace('dccommand', dccommand)
         lmruncnt = lmruncnt.replace('scriptname', lmscrn)
         lmruncnt = lmruncnt.replace('dirname', dname)
+        lmruncnt = lmruncnt.replace('contargs', contargs)
         flmrun = open(lmrunn, "w")
         flmrun.write(lmruncnt)
         flmrun.close()
@@ -144,4 +149,4 @@ for m in models:
         cmd = 'condor_submit '+cndn
         print cmd
         os.system(cmd)
-    break
+#    break

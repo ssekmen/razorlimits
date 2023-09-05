@@ -100,10 +100,16 @@ sms_models = {
                 ]),
         'T2qq':SMS(100, 1500, 0, 800,
             isGluino=False),
-        'T5ttcc':SMS(600, 2300, 0, 1650, diagonalOffset=110),
+        'T5ttcc':SMS(600, 2300, 0, 1800, diagonalOffset=110),
         'T5tttt':SMS(600, 2300, 0, 1650, diagonalOffset=225),
         'T5qqqqVV':SMS(600, 2300, 0, 1650),
         'T6ttZH':SMS(400, 1500, 0, 1200, isGluino=False),
+        'T5qqqqWH':SMS(1000, 2800, 0, 2500, isGluino=True),
+        'T5bbbbZH':SMS(1000, 2800, 0, 2500, isGluino=True),
+        'R5ttbl':SMS(1000, 2800, 0, 3000, isGluino=True),
+        'R2bbqqlv':SMS(300, 1600, 0, 1800, isGluino=False),
+        'TChiWW':SMS(200, 1500, 0, 900, isGluino=False),
+        'TChiWZ':SMS(200, 1500, 0, 900, isGluino=False),
 }
 # ------------------ End import by hand -----------------
 
@@ -394,12 +400,15 @@ if __name__ == '__main__':
 
     (options,args) = parser.parse_args()
 
+    maindir = '/afs/cern.ch/user/s/ssekmen/work/RazorRun2/limit/razorlimits/'
     box = options.box
     model = options.model
-    directory = options.outDir
+    directory = maindir+options.outDir
 
-    refXsecFile = options.refXsecFile
-    if "T2" in options.model or "T6" in options.model: refXsecFile = refXsecFile.replace("glu","stopsbot")
+    refXsecFile = maindir+options.refXsecFile
+    if "T2" in options.model or "T6" in options.model or "R2" in options.model: refXsecFile = refXsecFile.replace("glu","stopsbot")
+    if "TChiWW" in options.model: refXsecFile = refXsecFile.replace("glu","c1c1")
+    if "TChiWZ" in options.model: refXsecFile = refXsecFile.replace("glu","c1n2")
     if options.energy != 13: refXsecFile = refXsecFile.replace("13",str(options.energy))
     doHybridNew = options.doHybridNew
 
@@ -448,6 +457,7 @@ if __name__ == '__main__':
 
     # Make a xsec tree first578
 
+
     haddOutputs = []
     gchipairs = []
     #for result in glob.glob(directory+'/combine/RazorBoost_'+box+'_'+model+'_*.log'):
@@ -456,13 +466,14 @@ if __name__ == '__main__':
     #    gchipairs.append((mg,mchi))
     #    haddOutputs.append("%s/%s_xsecUL_mg_%s_mchi_%s_%s.root" %(directory, model, mg, mchi, box))
     # input files
-    print "directory", directory
+    print "\n Entering directory", directory
+    os.chdir(directory)
     if ctau != '':
-        infiles = directory+model+"_xsecUL_mg_*_mchi_*_ctau_"+ctau+"_"+box+".root"
+        infiles = model+"_xsecUL_mg_*_mchi_*_ctau_"+ctau+"_"+box+".root"
     else:
-        infiles = directory+model+"_xsecUL_mg_*_mchi_*.?_"+box+".root"
+        infiles = model+"_xsecUL_mg_*_mchi_*.?_"+box+".root"
     print 'infiles', infiles
-    if options.signif: infiles = directory+"/"+model+"_signif_mg_*_mchi_*.?_"+box+".root"
+    if options.signif: infiles = "/"+model+"_signif_mg_*_mchi_*.?_"+box+".root"
     for result in glob.glob(infiles):
         haddOutputs.append(result)
         if ctau != '':
@@ -474,7 +485,7 @@ if __name__ == '__main__':
     
         gchipairs.append((mg,mchi))
     if options.signif:
-        print directory+"/"+model+"_signif_*_"+box+".root"
+        print model+"_signif_*_"+box+".root"
         haddout = "%s/%s_signif_%s.root %s"%(directory+"/results",model,box," ".join(haddOutputs))
     else:
         print directory+"/"+model+"_xsecUL_*_"+box+".root"
@@ -482,7 +493,8 @@ if __name__ == '__main__':
         if ctau != "":
             print directory+"/"+model+"_"+ctau+"_xsecUL_*_"+box+".root"
             haddout = "%s/%s_%s_xsecUL_Asymptotic_%s.root %s"%(directory+"/results",model,ctau,box," ".join(haddOutputs))
-    print haddout
+    print "\n haddout: "+haddout
+    print os.path.exists(directory+"/results")
     if not os.path.exists(directory+"/results"): subprocess.call(["mkdir", "-p", directory+"/results"])
     os.system("hadd -f "+haddout)
     #os.system("rm %s"%(" ".join(haddOutputs)))

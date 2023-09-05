@@ -46,6 +46,7 @@ date = args.date
 model = args.model
 fresh = False
 #SRs = sys.argv[3]
+regsname = args.regsname
 
 SRs = ['SR_Had_1htop',
       'SR_Had_2htop',
@@ -111,38 +112,42 @@ systematics = [
     "_alphasDown",
     "_scaleUp",
     "_scaleDown",
-    #"_lostlepUp",
-    #"_lostlepDown",
+    "_lostlepUp",
+    "_lostlepDown",
     "_triggerUp",
     "_triggerDown",
     "_jesUp",
     "_jesDown",
     "_jerUp",
     "_jerDown",
-    "_metUp",
-    "_metDown",
-    "_RescaleAK8Up",
-    "_RescaleAK8Down",
+    #"_metUp",
+    #"_metDown",
+    #"_RescaleAK8Up",
+    #"_RescaleAK8Down",
+    "_puidUp",
+    "_puidDown",
     "_BoostTagUp",
     "_BoostTagDown",
     "_BoostTag_FastsimUp",
     "_BoostTag_FastsimDown",
     "_BoostmisTagUp",
     "_BoostmisTagDown",
-    "_BoostmisTag_FastsimUp",
-    "_BoostmisTag_FastsimDown",
-    "_EleRecoUp",
-    "_EleRecoDown",
-    "_EleIDUp",
-    "_EleIDDown",
-    "_EleIsoUp",
-    "_EleIsoDown",
+    #"_BoostmisTag_FastsimUp",
+    #"_BoostmisTag_FastsimDown",
+    #"_EleRecoUp",
+    #"_EleRecoDown",
+    #"_EleIDUp",
+    #"_EleIDDown",
+    #"_EleIsoUp",
+    #"_EleIsoDown",
+    "_EleFullsimUp",
+    "_EleFullsimDown",
     "_EleFastsimUp",
     "_EleFastsimDown",
-    "_PhoIDUp",
-    "_PhoIDDown",
-    "_MuonTrackUp",
-    "_MuonTrackDown",
+    #"_PhoIDUp",
+    #"_PhoIDDown",
+    #"_MuonTrackUp",
+    #"_MuonTrackDown",
     "_MuonFullsimUp",
     "_MuonFullsimDown",
     "_MuonFastsimUp",
@@ -160,15 +165,15 @@ systematics = [
 ]
 
 # binname
-if len(args.regsname) > 0:
-    binname = '_'+args.regsname
-    if binname == 'all': binname = ''
+if len(regsname) > 0:
+    binname = '_'+regsname
+    if regsname == 'all': binname = ''
 else:
     binname = ''
     for sr in SRs:
         binname = binname + '_' + sr 
 
-print(args.regsname, binname)
+print(regsname, binname)
 
 # Modify path below to match your setup:
 maindir = '/afs/cern.ch/user/s/ssekmen/work/RazorRun2/limit/razorlimits/'
@@ -182,7 +187,7 @@ if not os.path.exists(outdcdir):
 fbs = []
 for p in procs:
     if p == "Signal": continue
-    fb = TFile('/eos/cms/store/user/chuh/RazorBoost/limit/'+p+'.root')
+    fb = TFile('/eos/cms/store/user/chuh/RazorBoost/limit/run2_'+p+'.root')
     fbs.append(fb)
 
 # Get all BG histograms in a list
@@ -190,30 +195,35 @@ hbgs = []
 i = 0
 for p in procs:
     if p == "Signal": continue
+    print(p)
     hbgssr = []
     # Get BG histogram lists for each SR:
     for sr in SRs:
-        #h = fbs[i].Get("Background/MRR2_bkg_"+sr)        
-        h = fbs[i].Get("Background/MRR2_bkg_"+sr+"_new")        
-        #h.SetName("MRR2_"+p+"_"+sr+"_new")
-        h.SetName("MRR2_"+p+"_"+sr+"_new")
+        #h = fbs[i].Get("Background/MRR2_S_bkg_"+sr)        
+        h = fbs[i].Get("Background/MRR2_S_bkg_"+sr+"_new")
+        h.SetName("MRR2_S_"+p+"_"+sr+"_new")
         hbgssr.append(h)
     hbgs.append(hbgssr)
     i = i + 1
 
 # Get data histogram lists 
-fdata = TFile('/eos/cms/store/user/chuh/RazorBoost/limit/Data.root')
+fdata = TFile('/eos/cms/store/user/chuh/RazorBoost/limit/run2_Data.root')
 hdt = []
 for sr in SRs:
-    #h = gDirectory.Get("Data/MRR2_data_"+sr)        
-    h = gDirectory.Get("Data/MRR2_data_"+sr+"_new")        
+    #h = gDirectory.Get("Data/MRR2_S_data_"+sr)        
+    h = gDirectory.Get("Data/MRR2_S_data_"+sr+"_new")        
     #h.SetName("MRR2_Data_"+sr+"_new")
     #h.SetName("MRR2_Data_"+sr)
     hdt.append(h)
 
 # Get list of signal mass points
 sigpts = []
-fs = TFile('/eos/cms/store/user/chuh/RazorBoost/limit/SMS-T6ttZH_TuneCP5_13TeV-madgraphMLM-pythia8.root')
+modelfn = model
+if model == 'TChiWW': modelfn = 'TChiWWpm-mNLSP200To1500_mLSP0To600'
+if model == 'TChiWZ': modelfn = 'TChiWZ-mNLSP200To1500_mLSP0To600'
+fs = TFile('/eos/cms/store/user/chuh/RazorBoost/limit/run2_SMS-'+modelfn+'_TuneCP5_13TeV-madgraphMLM-pythia8.root')
+#fs = TFile('/eos/cms/store/user/chuh/RazorBoost/limit/SMS-TChiWWpm-mNLSP200To1500_mLSP0To600_TuneCP5_13TeV-madgraphMLM-pythia8.root')
+#fs = TFile('/eos/cms/store/user/chuh/RazorBoost/limit/SMS-TChiWZ-mNLSP200To1500_mLSP0To600_TuneCP5_13TeV-madgraphMLM-pythia8.root')
 fs.cd('Signal')
 for k in gDirectory.GetListOfKeys():
     kn = k.GetName()
@@ -291,7 +301,9 @@ for sig in sigpts:
             for b in range(len(hbgs)):
                 bgyield = hbgs[b][s].GetBinContent(ibin, 1)
                 if bgyield == 0: bgyield = 0.001
-                row = row +'%-16s' % str(round(bgyield,3))
+#                row = row +'%-16s' % str(round(bgyield,3))
+                # Fix negative BG yields.  This caused an issue in Had_1V_0b_34j but not others ...
+                row = row +'%-16s' % str(round(fabs(bgyield),3))
 #                row = row +'%-16s' % str(round(hbgs[b][s].GetBinContent(ibin, 1),3))
     dc.write(row+'\n')
     dc.write('-----------------------------------------\n')
@@ -306,6 +318,11 @@ for sig in sigpts:
                     down = round(hsg[s].GetBinContent(ibin, sy+2) / hsg[s].GetBinContent(ibin, 1), 3)
                     if up == 0: up = 0.001
                     if down == 0: down = 0.001
+                    if down > 10 and up < 10: down = up
+                    if down < 10 and up > 10: up = down
+                    if down > 10 and up > 10: 
+                        up = 1.15
+                        down = 0.85
                     if up != 1 or down != 1:    
                         thing = str(down)+'/'+str(up)
                 row = row +'%-16s' % thing
@@ -317,6 +334,11 @@ for sig in sigpts:
                         down = fabs(round(hbgs[b][s].GetBinContent(ibin, sy+2) / hbgs[b][s].GetBinContent(ibin, 1), 3))
                         if up == 0: up = 0.001
                         if down == 0: down = 0.001
+                        if down > 10 and up < 10: down = up
+                        if down < 10 and up > 10: up = down
+                        if down > 10 and up > 10: 
+                            up = 1.15
+                            down = 0.85
                         if up != 1 or down != 1:
                             thing2 = str(down)+'/'+str(up)
                     row = row +'%-16s' % thing2
