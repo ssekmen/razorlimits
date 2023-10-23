@@ -12,10 +12,9 @@ date = sys.argv[1]
 
 # Physics models
 # add TChiZZ, TChiZH, TChiHH
-models = ['TChiWW', 'TChiWZ', 'T5bbbbZH', 'T5ttcc', 'T5qqqqWH', 'T6ttZH', 'R2bbqqlv', 'R5ttbl']
-#models = ['T6ttZH']
-#models = ['TChiWW', 'TChiWZ', 'T6ttZH', 'T5ttcc']
-models = ['R5ttbl']
+#models = ['TChiWW', 'TChiWZ', 'T5bbbbZH', 'T5ttcc', 'T5qqqqWH', 'T6ttZH', 'R2bbqqlv', 'R5ttbl']
+models = ['TChiWW', 'TChiWZ', 'T5bbbbZH', 'T5ttcc', 'T5qqqqWH', 'T6ttZH', 'R2bbqqlv']
+#models = ['R2bbqqlv']
 
 # List of SRs for which to run limits.  
 # Modify the SR list as needed.
@@ -45,8 +44,8 @@ allSRs = ['SR_Had_1htop',
       'SR_Lep_H_b',
       'SR_Lep_H_0b',
     # Non-isolated lepton signal regions
-      'SR_Leptop_0htop',
-      'SR_Leptop_1htop',
+      #'SR_Leptop_0htop', # 'SR_Leptop_0htop',
+      'SR_Lepjet_1htop', # 'SR_Leptop_1htop',
       'SR_Lepjet_0V_24j',
       'SR_Lepjet_0V_5j',
       'SR_Lepjet_1V_24j',
@@ -59,8 +58,8 @@ lepSRs = filter(lambda sr: '_Lep_' in sr, allSRs)
 HSRs = filter(lambda sr: 'd_H' in sr or 'p_H' in sr, allSRs)
 VSRs = filter(lambda sr: 'V' in sr and not '0V' in sr, allSRs)
 topSRs = filter(lambda sr: 'top' in sr and not '0htop' in sr, allSRs)
-LeptopSRs = filter(lambda sr: 'Leptop' in sr, allSRs)
-LepjetSRs = filter(lambda sr: 'Lepjet' in sr, allSRs)
+#LeptopSRs = filter(lambda sr: 'Leptop' in sr, allSRs)
+#LepjetSRs = filter(lambda sr: 'Lepjet' in sr, allSRs)
 nisolepSRs = filter(lambda sr: 'Leptop' in sr or 'Lepjet' in sr, allSRs)
 
 # Dictionary option - specify regions list name (e.g. had) and list of regions: 
@@ -71,9 +70,12 @@ SRs = {'all' : allSRs,
        'V' : VSRs,
        'top' : topSRs,
        'nisolep' : nisolepSRs,
-       'Leptop' : LeptopSRs,
-       'Lepjet' : LepjetSRs}
-#SRs = {'all' : allSRs}
+#       'Leptop' : LeptopSRs,
+#       'Lepjet' : LepjetSRs,
+       }
+#SRs = {'all' : allSRs,
+#       'nisolep' : nisolepSRs,
+#       }
 
 
 # Limit code directory
